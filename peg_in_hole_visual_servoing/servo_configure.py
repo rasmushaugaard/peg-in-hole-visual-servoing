@@ -75,7 +75,7 @@ def config_from_demonstration(
         r.ctrl.endTeachMode()
 
     robots_q_init = [r.recv.getActualQ() for r in robots]
-    robots_t_init = [r.recv.getActualTCPPose() for r in robots]
+    robots_t_init = [r.base_t_tcp() for r in robots]
     state = scene_state.copy()
 
     for base_t_tcp, tcp_node in zip(robots_t_init, tcp_nodes):
@@ -83,7 +83,8 @@ def config_from_demonstration(
 
     crop_configs = []
     for image_topic, K, dist_coeff in zip(image_topics, Ks, dist_coeffs):
-        rect_maps = cv2.initUndistortRectifyMap(K, dist_coeffs, np.eye(3), K, (1920, 1080), cv2.CV_32FC1)
+        K, dist_coeff = np.array(K), np.array(dist_coeff)
+        rect_maps = cv2.initUndistortRectifyMap(K, dist_coeff, np.eye(3), K, (1920, 1080), cv2.CV_32FC1)
         img = rospy.wait_for_message(image_topic, sensor_msgs.msg.Image, timeout=1)
         img = image_to_numpy(img)
         img = cv2.remap(img, *rect_maps, cv2.INTER_LINEAR)
@@ -94,16 +95,17 @@ def config_from_demonstration(
                                               lambda: img, arrow=True, first_point=hole_center)
         hole_normal = hole_points[1] - hole_points[0]
         crop_configs.append({
-            'K': K,
-            'dist_coeffs': dist_coeff,
+            'image_topic': image_topic,
+            'K': K.tolist(),
+            'dist_coeffs': dist_coeff.tolist(),
             'hole_center': hole_center.tolist(),
             'hole_size': hole_size,
             'hole_normal': hole_normal.tolist()
         })
 
     servo_config = {
-        'robots_q_init': robots_q_init,
-        'robots_t_init': robots_t_init,
+        'robots_q_init': [list(q) for q in robots_q_init],
+        'robots_t_init': [list(t.xyz_rotvec) for t in robots_t_init],
         'crop_configs': crop_configs,
     }
 

@@ -8,10 +8,7 @@ setup(
         'numpy',
         'pillow',
         'typing',
-        'opencv-python',
         'transform3d',
-        'ur_control',
-        'torch',
-        'torchvision'
+        'ur_control'
     ]
 )

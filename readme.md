@@ -16,13 +16,19 @@ then make sure, the computers clocks are synchronized, eg. with [chrony](https:/
 Requires a trained model, see
 [peg-in-hole-visual-servoing-model](https://github.com/RasmusHaugaard/peg-in-hole-visual-servoing-model).
 
+
 #### install
+install opencv  
+``$ pip3 install opencv-python``
+
+On the annotator node, *torch* and *torchvision* should also be installed.
+
+install visual servoing module  
 ``$ pip3 install -e .`` 
 
 ROS is used for communication between the crop and client node.   
 ``$ catkin_make --directory ros``  
 ``$ source ros/devel/setup.bash``  
-
 
 #### on the computer that is connected to the cameras
 ``python3 -m peg_in_hole_visual_servoing.crop``
