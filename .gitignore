@@ -1,0 +1,5 @@
+ros/build
+ros/devel
+.idea
+**/__pycache__
+*.egg-info

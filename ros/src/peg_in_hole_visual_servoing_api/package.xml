@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>peg_in_hole_visual_servoing_api</name>
+  <version>0.0.0</version>
+  <description>The peg_in_hole_visual_servoing_api package</description>
+  <maintainer email="rasmus.l.haugaard@gmail.com">Rasmus Laurvig Haugaard</maintainer>
+  <license>TODO</license>
+  <build_depend>message_generation</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <exec_depend>message_runtime</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <buildtool_depend>catkin</buildtool_depend>
+</package>

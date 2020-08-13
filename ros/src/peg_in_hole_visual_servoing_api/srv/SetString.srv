@@ -1,0 +1,5 @@
+# request
+string str
+---
+# response
+bool success
