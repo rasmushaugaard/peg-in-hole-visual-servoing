@@ -85,7 +85,7 @@ def config_from_demonstration(
     for image_topic, K, dist_coeff in zip(image_topics, Ks, dist_coeffs):
         K, dist_coeff = np.array(K), np.array(dist_coeff)
         rect_maps = cv2.initUndistortRectifyMap(K, dist_coeff, np.eye(3), K, (1920, 1080), cv2.CV_32FC1)
-        img = rospy.wait_for_message(image_topic, sensor_msgs.msg.Image, timeout=1)
+        img = rospy.wait_for_message(image_topic, sensor_msgs.msg.Image, timeout=3)
         img = image_to_numpy(img)
         img = cv2.remap(img, *rect_maps, cv2.INTER_LINEAR)
         hole_points = utils.gui_select_vector('mark hole (longest line within the hole)', lambda: img)

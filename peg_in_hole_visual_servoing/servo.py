@@ -66,6 +66,7 @@ def servo(peg_robot: Robot, peg_tcp_node: SceneNode, scene_state: SceneState,
             state[tcp_node] = transform
 
     add_current_scene_config()
+    update_scene_state(0)
 
     peg_tcp_init_node = SceneNode(parent=peg_tcp_node.parent)
     state[peg_tcp_init_node] = scene_configs[-1][0]
